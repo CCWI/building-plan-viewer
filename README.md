@@ -5,7 +5,7 @@ This is a web application for viewing CAD files in DXF format that represent dig
 Beside viewing the building plan, the application can also combine it with a specified mapping allowing to color certain rooms (polygons). 
 This may be used for showing their cluster membership after a clustering of rooms, or for visualizing other analysis results or room queries.
 
-The application was developed as part of student projects at the HM Munich University of Applied Sciences.
+The application was developed as part of student projects at the HM Munich University of Applied Sciences, within the context of the research project NuData Campus.
 Version v0.2.0 is a further development from a previous student project published under https://github.com/bennyboer/building-plan-viewer/.
 
 ## Getting started
