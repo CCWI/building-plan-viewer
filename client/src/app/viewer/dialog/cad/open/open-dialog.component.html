@@ -1,0 +1,35 @@
+<h1 mat-dialog-title class="header">
+	Open CAD-file
+	<button mat-icon-button (click)="onCancel()">
+		<mat-icon>close</mat-icon>
+	</button>
+</h1>
+
+<div mat-dialog-content>
+	<div *ngIf="referencePromise | async as references; else loading">
+		<div *ngIf="!!references && references.length > 0; else empty">
+			<p>Please select one of the following CAD files to open</p>
+
+			<mat-action-list>
+				<button mat-list-item *ngFor="let ref of references" (click)="onOpen(ref)">
+					<span class="item-layout">
+						<strong>{{ ref.name }}</strong>&nbsp;
+						<i>({{ getCreatedDateRepresentation(ref.createdTimestamp) }})</i>
+					</span>
+				</button>
+			</mat-action-list>
+		</div>
+
+		<ng-template #empty>
+			<div style="text-align: center; padding: 1em">
+				There haven't been any CAD files uploaded yet.
+			</div>
+		</ng-template>
+	</div>
+
+	<ng-template #loading>
+		<div style="display: flex; flex-direction: row; justify-content: center; padding: 1em 0">
+			<mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+		</div>
+	</ng-template>
+</div>

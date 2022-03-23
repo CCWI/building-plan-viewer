@@ -1,0 +1,53 @@
+<div class="box">
+	<button class="button" mat-icon-button matTooltip="Return to Viewer" *ngIf="isExportMode" (click)="refresh()">
+		<mat-icon inline="true">arrow_back</mat-icon>
+	</button>
+	<span class="divider" *ngIf="isExportMode"></span>
+	<button class="button" mat-icon-button matTooltip="Open a file" *ngIf="!isExportMode" (click)="onOpenClicked()">
+		<mat-icon inline="true">launch</mat-icon>
+	</button>
+	<button class="button" mat-icon-button matTooltip="Upload a file" *ngIf="!isExportMode" (click)="onUploadClicked()">
+		<mat-icon inline="true">publish</mat-icon>
+	</button>
+	<button class="button" mat-icon-button matTooltip="Export" *ngIf="!isExportMode" (click)="onExportClicked()">
+		<mat-icon inline="true">save</mat-icon>
+	</button>
+
+	<span class="divider" *ngIf="!isExportMode"></span>
+
+	<button class="button" mat-icon-button matTooltip="Manage room mappings" *ngIf="!isExportMode"
+			[disabled]="!canvasOptionsEnabled" (click)="onRoomMappingsClicked()">
+		<mat-icon inline="true">room</mat-icon>
+	</button>
+	<button class="button" mat-icon-button matTooltip="Reset viewport" [disabled]="!canvasOptionsEnabled"
+			(click)="onViewportResetClicked()">
+		<mat-icon inline="true">preview</mat-icon>
+	</button>
+	<button class="colorPicker" mat-icon-button matTooltip="Select Color" ngx-colors-trigger [disabled]="!canvasOptionsEnabled" [(ngModel)]="color" (change)=onColorPickerClicked()>
+		<mat-icon inline="true" [style.color]="color" [style.opacity]="getOpacity()">format_color_fill</mat-icon>
+	</button>
+	
+	<button class="button" mat-icon-button matTooltip="Set Background Color" [disabled]="!canvasOptionsEnabled"
+			(click)="onBackgroundColorClicked()">
+		<mat-icon inline="true">colorize</mat-icon>
+	</button>
+
+	<span class="divider"></span>
+
+	<mat-slide-toggle style="margin-left: 10px;"
+					  [checked]="labelsHidden"
+					  (change)="onHideLabelsToggled($event)"
+					  matTooltip="Toggle Room Labels" [disabled]="!canvasOptionsEnabled">
+	</mat-slide-toggle>
+	<mat-icon style="font-size: 24px;
+	padding: 5px;" inline="true">bookmark_border</mat-icon>
+
+	<mat-slide-toggle style="margin-left: 10px;"
+					  [checked]="isDarkMode"
+					  (change)="onThemeChange($event)"
+					  matTooltip="Toggle Dark Mode">
+	</mat-slide-toggle>
+	<mat-icon style="font-size: 24px;
+	padding: 5px;" inline="true">nights_stay</mat-icon>
+
+</div>

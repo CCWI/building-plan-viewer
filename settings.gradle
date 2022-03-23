@@ -1,0 +1,4 @@
+rootProject.name = 'building-plan-viewer'
+
+include 'client'
+include 'server'

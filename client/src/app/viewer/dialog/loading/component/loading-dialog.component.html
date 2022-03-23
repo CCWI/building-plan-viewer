@@ -1,0 +1,16 @@
+<div mat-dialog-content class="content">
+	<mat-progress-bar
+		[class._mat-animation-noopable]="isDeterminate"
+		[mode]="isDeterminate ? 'determinate' : 'indeterminate'"
+		[value]="progress">
+	</mat-progress-bar>
+
+	<span class="message">{{ message }}</span>
+</div>
+
+<div mat-dialog-actions class="actions" *ngIf="isCancelAllowed">
+	<button mat-stroked-button (click)="onCancel()">
+		Cancel
+	</button>
+</div>
+

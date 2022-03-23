@@ -1,0 +1,6 @@
+<ul class="legend">
+	<li class="legend-item" *ngFor="let entry of mapping.entries() " >
+		<span class="legend-item-label" >{{ entry[0] }}</span>
+		<span class="legend-item-color" [style.backgroundColor]="entry[1]" (click)="onSingleColorChangeClicked(entry[0])"></span>
+	</li>
+</ul>

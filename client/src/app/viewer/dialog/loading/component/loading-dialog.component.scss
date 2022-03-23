@@ -1,0 +1,20 @@
+.content {
+	min-width: 250px;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.message {
+	padding: 20px 0 10px 0;
+	font-size: 1.5em;
+}
+
+.actions {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}

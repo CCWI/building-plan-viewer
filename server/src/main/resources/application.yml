@@ -1,0 +1,23 @@
+springdoc:
+  swagger-ui:
+    path: /api/documentation.html
+hibernate:
+  create_empty_composites:
+    enabled: true
+
+# Change if the viewer application is running locally or in Docker
+spring:
+  resources:
+    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,file:/workspace/             #(Docker)
+  #static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,file:./server/html_exports    #(Windows/Local)
+
+#Change if the viewer application is hosted on another Server or on Localhost
+viewer:
+  server:
+     link: http://localhost:8080/
+
+# Change if the viewer application is running locally or in Docker
+upload:
+  folder:
+  # path: ./server/html_exports #(Windows/Local)
+    path: .                   #(Docker)

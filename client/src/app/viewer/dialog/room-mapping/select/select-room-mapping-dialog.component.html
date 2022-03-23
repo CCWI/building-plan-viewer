@@ -1,0 +1,59 @@
+<h1 mat-dialog-title class="header">
+	Select room mapping
+	<button mat-icon-button (click)="onCancel()">
+		<mat-icon>close</mat-icon>
+	</button>
+</h1>
+
+<div mat-dialog-content>
+
+	<div>
+		<mat-form-field appearance="outline">
+			<mat-label>Colormap</mat-label>
+			<mat-select [(value)]="selectedColormap">
+				<mat-option *ngFor="let colormap of availableColormaps" [value]="colormap">
+					<span style="display: flex; flex-direction: row; justify-content: center; align-items: center">
+						<app-colormap-icon-component [name]="colormap"></app-colormap-icon-component>
+					</span>
+				</mat-option>
+			</mat-select>
+		</mat-form-field>
+	</div>
+
+	<div *ngIf="referencePromise | async as references; else loading">
+		<div *ngIf="!!references && references.length > 0; else empty">
+			<p>Please select one of the following room mappings to activate</p>
+
+			<mat-action-list>
+				<button mat-list-item (click)="onSelect(null)">
+					<strong>Show no mapping</strong>
+				</button>
+				<button mat-list-item *ngFor="let ref of references" (click)="onSelect(ref)">
+					<span class="item-layout">
+						<strong>{{ ref.name }}</strong>&nbsp;
+						<i>({{ getCreatedDateRepresentation(ref.createdTimestamp) }})</i>
+					</span>
+				</button>
+			</mat-action-list>
+		</div>
+
+		<ng-template #empty>
+			<div style="text-align: center; padding: 1em">
+				There haven't been any room mappings uploaded for the current CAD file.
+			</div>
+		</ng-template>
+	</div>
+
+	<ng-template #loading>
+		<div style="display: flex; flex-direction: row; justify-content: center; padding: 1em 0">
+			<mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+		</div>
+	</ng-template>
+</div>
+
+<div mat-dialog-actions class="actions">
+	<button mat-raised-button color="accent" (click)="onCreateMapping()">
+		<mat-icon>create</mat-icon>
+		Create new mapping
+	</button>
+</div>

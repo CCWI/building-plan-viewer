@@ -1,0 +1,88 @@
+import org.apache.tools.ant.taskdefs.condition.Os
+
+plugins {
+	id 'base'
+	id 'com.github.node-gradle.node' version '2.2.4'
+}
+
+node {
+	version = '15.2.0'
+	download = true
+}
+
+task buildFrontend(type: NodeTask) {
+	dependsOn 'npmInstall'
+	script = file('node_modules/@angular/cli/bin/ng')
+	args = ['build', '--prod']
+}
+
+task startDevelopmentServer {
+	dependsOn 'npmInstall'
+
+	doLast {
+		println "STARTING ANGULAR DEVELOPMENT SERVER..."
+		ProcessBuilder serveBuilder
+
+		println "Using node executable at $node.variant.nodeExec"
+
+		String serveCommand = "$node.variant.nodeExec ./node_modules/@angular/cli/bin/ng serve --prod --live-reload=false --watch=false"
+		if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+			// WINDOWS
+			serveBuilder = new ProcessBuilder("cmd /c $serveCommand".split(" "))
+		} else {
+			// LINUX
+			serveBuilder = new ProcessBuilder("sh -c $serveCommand".split(" "))
+		}
+		serveBuilder.redirectErrorStream(true)
+		serveBuilder.directory(new File("$projectDir"))
+		Process serveProcess = serveBuilder.start()
+
+		InputStream stdout = serveProcess.getInputStream()
+		BufferedReader reader = new BufferedReader(new InputStreamReader(stdout))
+
+		long start = System.nanoTime();
+
+		def line
+		while ((line = reader.readLine()) != null) {
+			println line
+
+			long waitTime = (System.nanoTime() - start) / 1000 / 1000
+			boolean isTimeout = waitTime > 120000
+			if (isTimeout) {
+				println "Could not start development server -> TIMEOUT"
+				break
+			}
+
+			if (line.contains("Compiled successfully")) {
+				break
+			}
+		}
+
+		println "ANGULAR DEVELOPMENT SERVER STARTED"
+
+		startDevelopmentServer.ext.process = serveProcess
+	}
+}
+
+task shutdownDevelopmentServer {
+	dependsOn 'startDevelopmentServer'
+
+	doLast {
+		Process serveProcess = startDevelopmentServer.process
+
+		println "SHUTTING DOWN ANGULAR DEVELOPMENT SERVER..."
+		serveProcess.destroy()
+		serveProcess.descendants().forEach({
+			it.destroy()
+		})
+		println "ANGULAR DEVELOPMENT SERVER STOPPED"
+	}
+}
+
+task buildExportFile(type: NodeTask) {
+	dependsOn 'npmInstall', 'startDevelopmentServer'
+
+	script = file("$projectDir/scripts/build-export.js")
+}
+buildFrontend.finalizedBy(buildExportFile)
+buildExportFile.finalizedBy(shutdownDevelopmentServer)

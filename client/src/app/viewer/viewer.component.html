@@ -1,0 +1,23 @@
+<div class="controls-container">
+	<app-viewer-controls></app-viewer-controls>
+</div>
+
+<div *ngIf="showPlaceholder" class="placeholder">
+	<div>
+		<span>
+			{{ placeHolderMessage }}
+		</span>
+	</div>
+	<div style="display: flex; flex-direction: row; width: 300px; justify-content: space-evenly">
+		<button mat-stroked-button (click)="onOpen()">
+			Open file...
+		</button>
+		<button mat-stroked-button (click)="onUpload()">
+			Upload file...
+		</button>
+	</div>
+</div>
+
+<div class="canvas-container">
+	<app-canvas-component [hidden]="!showPlaceholder"></app-canvas-component>
+</div>

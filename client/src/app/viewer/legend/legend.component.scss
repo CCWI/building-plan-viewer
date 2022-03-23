@@ -1,0 +1,46 @@
+:host {
+	display: inline-block;
+}
+
+ul.legend {
+	margin: 0;
+	list-style-type: none;
+
+	padding: 5px;
+	border-radius: 5px;
+	box-shadow: 0 0 1.0em rgba(0.0, 0.0, 0.0, 0.3);
+
+	-webkit-user-select: none; /* Safari */
+	-ms-user-select: none; /* IE 10 and IE 11 */
+	user-select: none; /* Standard syntax */
+}
+
+li.legend-item {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+
+.legend-item-label {
+	font-size: 1.2em;
+	width: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.legend-item-color {
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	opacity: 0.5;
+	margin-left: 10px;
+}
+
+@mixin legend-component-theme($theme) {
+	$background: map-get($theme, background);
+
+	ul.legend {
+		background-color: mat-color($background, dialog);
+	}
+}

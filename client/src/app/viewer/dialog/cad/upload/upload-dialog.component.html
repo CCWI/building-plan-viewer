@@ -1,0 +1,57 @@
+<h1 mat-dialog-title class="header">
+	Upload CAD-file
+	<button mat-icon-button (click)="onCancel()">
+		<mat-icon>close</mat-icon>
+	</button>
+</h1>
+
+<div mat-dialog-content>
+	<mat-vertical-stepper [linear]="true" #stepper>
+
+		<mat-step [stepControl]="uploadFormGroup" [editable]="false">
+			<form [formGroup]="uploadFormGroup">
+				<ng-template matStepLabel>Select a file to upload</ng-template>
+				<div style="display: flex; flex-direction: row; align-items: center">
+					<mat-form-field style="width: 250px">
+						<mat-label>File</mat-label>
+						<input matInput formControlName="selectedFileCtrl">
+					</mat-form-field>
+					<button mat-button (click)="onSelectFile()">
+						<mat-icon matPrefix>publish</mat-icon>
+						Select...
+					</button>
+				</div>
+				<div style="text-align: center">
+					<button mat-stroked-button color="accent" (click)="onUpload()">Upload...</button>
+				</div>
+			</form>
+		</mat-step>
+
+		<mat-step [editable]="false">
+			<ng-template matStepLabel>Upload</ng-template>
+			<div style="display: flex; flex-flow: row; align-items: center; padding: 5px 0">
+				<span style="margin-right: 5px">
+					<mat-progress-spinner mode="indeterminate" [diameter]="30" [strokeWidth]="3"></mat-progress-spinner>
+				</span>
+				<span>Uploading the selected file: '{{ uploadFormGroup.controls.selectedFileCtrl.value }}'...</span>
+			</div>
+		</mat-step>
+
+		<mat-step [editable]="false">
+			<ng-template matStepLabel>Done</ng-template>
+			<div style="display: flex; flex-flow: row; justify-content: center; padding: 1em 0">
+				<div style="font-size: 48px">
+					<mat-icon [inline]="true">done</mat-icon>
+				</div>
+			</div>
+			<div style="text-align: center">
+				<p>The file has been successfully uploaded.</p>
+			</div>
+			<div style="display:flex; flex-direction: row; justify-content: space-evenly">
+				<button mat-stroked-button (click)="onFinish(false)">Exit</button>
+				<button mat-stroked-button color="accent" (click)="onFinish(true)">Open file</button>
+			</div>
+		</mat-step>
+
+	</mat-vertical-stepper>
+</div>

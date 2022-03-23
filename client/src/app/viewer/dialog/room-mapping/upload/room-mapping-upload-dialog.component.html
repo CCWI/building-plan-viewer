@@ -1,0 +1,107 @@
+<h1 mat-dialog-title class="header">
+	Upload room mapping
+	<button mat-icon-button (click)="onCancel()">
+		<mat-icon>close</mat-icon>
+	</button>
+</h1>
+
+<div mat-dialog-content>
+	<mat-vertical-stepper [linear]="true" #stepper>
+
+		<mat-step [stepControl]="mappingFormGroup" [editable]="false">
+			<form [formGroup]="mappingFormGroup">
+				<ng-template matStepLabel>Define a room mapping</ng-template>
+				<div style="display: flex; flex-direction: row; align-items: center">
+					<mat-form-field style="width: 250px">
+						<mat-label>File</mat-label>
+						<input matInput formControlName="selectedFileCtrl">
+					</mat-form-field>
+					<button mat-button (click)="onSelectCSVFile()">
+						<mat-icon matPrefix>publish</mat-icon>
+						Select...
+					</button>
+				</div>
+				<mat-accordion>
+					<mat-expansion-panel hideToggle>
+						<mat-expansion-panel-header>
+							<mat-panel-title>
+								CSV settings
+							</mat-panel-title>
+						</mat-expansion-panel-header>
+
+						<mat-form-field style="width: 100%">
+							<mat-label>Delimiter</mat-label>
+							<input matInput formControlName="delimiter">
+						</mat-form-field>
+					</mat-expansion-panel>
+					<mat-expansion-panel hideToggle>
+						<mat-expansion-panel-header>
+							<mat-panel-title>
+								Column header mappings
+							</mat-panel-title>
+						</mat-expansion-panel-header>
+
+						<div>
+							<mat-form-field style="width: 100%">
+								<mat-label>Room name</mat-label>
+								<input matInput formControlName="roomNameHeader">
+							</mat-form-field>
+						</div>
+						<div>
+							<mat-form-field style="width: 100%">
+								<mat-label>Category</mat-label>
+								<input matInput formControlName="categoryHeader">
+							</mat-form-field>
+						</div>
+						<div>
+							<mat-form-field style="width: 100%">
+								<mat-label>Description</mat-label>
+								<input matInput formControlName="descriptionHeader">
+							</mat-form-field>
+						</div>
+						<div>
+							<mat-form-field style="width: 100%">
+								<mat-label>Mapping vertex</mat-label>
+								<input matInput formControlName="mappingVertexHeader">
+							</mat-form-field>
+						</div>
+						<div>
+							<mat-form-field style="width: 100%">
+								<mat-label>Polygon list</mat-label>
+								<input matInput formControlName="polygonListHeader">
+							</mat-form-field>
+						</div>
+
+					</mat-expansion-panel>
+				</mat-accordion>
+				<div style="margin-top: 10px; text-align: center">
+					<button mat-stroked-button color="accent" (click)="onUpload()">Upload...</button>
+				</div>
+			</form>
+		</mat-step>
+
+		<mat-step [editable]="false">
+			<ng-template matStepLabel>Upload</ng-template>
+			<div style="display: flex; flex-flow: row; align-items: center; padding: 5px 0">
+				<span style="margin-right: 5px">
+					<mat-progress-spinner mode="indeterminate" [diameter]="30" [strokeWidth]="3"></mat-progress-spinner>
+				</span>
+				<span>Uploading the selected file: '{{ mappingFormGroup.controls.selectedFileCtrl.value }}'...</span>
+			</div>
+		</mat-step>
+
+		<mat-step [editable]="false">
+			<ng-template matStepLabel>Done</ng-template>
+			<div style="display: flex; flex-flow: row; justify-content: center; padding: 1em 0">
+				<div style="font-size: 48px">
+					<mat-icon [inline]="true">done</mat-icon>
+				</div>
+			</div>
+			<div style="text-align: center">
+				<p>The file has been successfully uploaded.</p>
+				<button mat-stroked-button color="accent" (click)="onFinish()">Finish</button>
+			</div>
+		</mat-step>
+
+	</mat-vertical-stepper>
+</div>

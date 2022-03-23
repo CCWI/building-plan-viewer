@@ -1,0 +1,15 @@
+RoomNumber,Cluster,MappingVertex,Description
+Room_1,1,"(95, 763)",Bedroom
+Room_2,2,"(95, 591)",W.I.C
+Room_3,1,"(95, 547)",Bedroom
+Room_4,3,"(263, 763)",Bathroom
+Room_5,3,"(351, 763)",Toilet
+Room_6,2,"(263, 692)",W.I.C
+Room_7,3,"(351, 692)",Bathroom
+Room_8,1,"(261, 547)",Bedroom
+Room_9,0,"(403, 547)",Entry
+Room_10,2,"(525, 547)",Pantry
+Room_11,2,"(581, 547)",Utility Room
+Room_12,4,"(415, 763)",Living Room
+Room_13,0,"(196, 591)",Hallway
+Room_14,5,"(525, 461)",Garage
